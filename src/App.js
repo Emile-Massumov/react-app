@@ -44,7 +44,7 @@ this.setState ({ list: updatedList});
   render() { 
   return (
     <div className="App">
-     <div className="header">
+     <div className="container">
     Add an Item ...
     <br/>
     <input className="inputadd"
