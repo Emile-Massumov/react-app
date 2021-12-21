@@ -40,44 +40,100 @@ const list = [...this.state.list];
 const updatedList = list.filter(item => item.id !==id)
 this.setState ({ list: updatedList});
 }
+  //incorporating local storage 
+  componentDidMount() {
+    this.hydrateStateWithLocalStorage();
+
+    // add event listener to save state to localStorage
+    // when user leaves/refreshes the page
+    window.addEventListener(
+      "beforeunload",
+      this.saveStateToLocalStorage.bind(this)
+    );
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener(
+      "beforeunload",
+      this.saveStateToLocalStorage.bind(this)
+    );
+
+    // saves if component has a chance to unmount
+    this.saveStateToLocalStorage();
+  }
+
+  hydrateStateWithLocalStorage() {
+    // for all items in state
+    for (let key in this.state) {
+      // if the key exists in localStorage
+      if (localStorage.hasOwnProperty(key)) {
+        // get the key's value from localStorage
+        let value = localStorage.getItem(key);
+
+        // parse the localStorage string and setState
+        try {
+          value = JSON.parse(value);
+          this.setState({ [key]: value });
+        } catch (e) {
+          // handle empty string
+          this.setState({ [key]: value });
+        }
+      }
+    }
+  }
+
+  saveStateToLocalStorage() {
+    // for every item in React state
+    for (let key in this.state) {
+      // save to localStorage
+      localStorage.setItem(key, JSON.stringify(this.state[key]));
+    }
+  }
 
   render() { 
   return (
-    <div className="App">
-     <div className="container">
+    <div App>
+    <div className="container">
+     
+          
     Add an Item ...
     <br/>
-    <input className="inputadd"
+    <input 
     type="text"
     placeholder="Type item here..."
     value={this.state.newItem}
     onChange={e => this.updateInput ("newItem",e.target.value)}
     />
-    <button
+    <button  className="add-btn btn-floating"
     onClick={() => this.addItem ()}
+    disabled={!this.state.newItem.length}
     >
       Add
     </button>
     <br/>
-    <ul className="inputlist">
+    <br/>
+    <ul >
       {this.state.list.map(item => {
         return ( 
-          <li key={item.id} className="inputmarker">
+          <li key={item.id} >
             {item.value}
-            <button className="button"
+            <button className="addbutton"
             onClick={() => this.deleteItem (item.id)}
             >
             X  
             </button>
     </li>
-        )
+        );
       })}
         </ul>   
        </div> 
      </div>
-      );
+    
+      )
         }
         }
+        
+        export default App;
 
 
-export default App;
+
