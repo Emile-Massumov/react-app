@@ -1,19 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import Tweet from "./Tweet";
 
 
 function App () {
+  const [isRed, setRed] = useState(false);
+  const [count, setCount] =useState(0);
+  const pressButton = () => {
+  setCount(count +1)
+  setRed(!isRed);
+  };
   
   return (
     <div className="app">
-  
-      <Tweet name="Émile" message="Likes coding ,même si c'est difficile"
-      rate="888"/>
-      <Tweet name="Zinapa" message="Study insurance"rate="1000"/>
-      <Tweet name="Madina"message="Reste à la maison"rate="3907"/>
+      <h1 className={isRed ? 'red' : ""}>Émile</h1>
+      <button onClick={pressButton}>Press here</button>
+      <h1>{count}</h1>
       </div>
   );
   }
+
  
         
 export default App;
