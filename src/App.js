@@ -6,10 +6,11 @@ function App () {
   
   return (
     <div className="app">
-      <h1>Bonjour React</h1>
-      <Tweet/>
-      <Tweet/>
-      <Tweet/>
+  
+      <Tweet name="Émile" message="Likes coding ,même si c'est difficile"
+      rate="888"/>
+      <Tweet name="Zinapa" message="Study insurance"rate="1000"/>
+      <Tweet name="Madina"message="Reste à la maison"rate="3907"/>
       </div>
   );
   }

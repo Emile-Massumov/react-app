@@ -2,6 +2,8 @@
   min-height: 100vh;
   background: burlywood;
   display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .tweet {
